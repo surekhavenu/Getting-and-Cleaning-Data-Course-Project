@@ -1,5 +1,5 @@
 ---
-title: "Tidy Data Set Details"
+title: "Code Book of Getting and Cleaning Data Course Project"
 author: "Surekha Venu"
 date: "Wednesday, May 20, 2015"
 output: html_document
