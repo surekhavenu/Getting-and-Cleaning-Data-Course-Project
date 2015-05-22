@@ -34,11 +34,10 @@ Followng are steps used in run_analysis.R for preparing the tidy data set.
         2.4. Get only the measurements on the mean and standard deviation for each measurement. 
 
 3. Uses descriptive activity names to name the activities in the data set
-        3.1. Merge label data frame and activity data frame into activity data frame
-             as V1 of label data frame and V1 of acitvity data frame matches
-        3.2. Remove label data frame as it is no more needed
-        3.3. Combine activity data fram and main data fram into main data frame
-        3.4. Remove activity data frame as it is no more needed
+        3.1. Change the activity identifier to activity
+        3.2. Remove activity data frame as it is no more needed
+        3.3. Combine label data frame and main data frame into main data frame
+        3.4. Remove label data frame as it is no more needed
         3.5. Combine subject data frame and main data frame into main data frame
         3.6. Remove subject data frame as it is no more needed
 

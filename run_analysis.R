@@ -66,18 +66,17 @@ mDF <- mDF[ , measuredColIndices]
 
 ## 3. Uses descriptive activity names to name the activities in the data set
 
-## 3.1. Merge label data frame and activity data frame into activity data frame
-##      as V1 of lable data frame and V1 of acitvity data frame matches
-aDF <- merge(lDF, aDF, sort = FALSE)
+## 3.1. Change the activity identifier to activity 
+lDF$V1 <- factor(lDF$V1, aDF$V1, aDF$V2)
 
-## 3.2. Remove label data frame as it is no more needed
-rm(lDF)
-
-## 3.3. Combine activity data fram and main data fram into main data frame
-mDF <- cbind(aDF, mDF)
-
-## 3.4. Remove activity data frame as it is no more needed
+## 3.2. Remove activity data frame as it is no more needed
 rm(aDF)
+
+## 3.3. Combine label data frame and main data fram into main data frame
+mDF <- cbind(lDF, mDF)
+
+## 3.4. Remove label data frame as it is no more needed
+rm(lDF)
 
 ## 3.5. Combine subject data frame and main data frame into main data frame
 mDF <- cbind(sDF, mDF)
@@ -86,20 +85,20 @@ mDF <- cbind(sDF, mDF)
 rm(sDF)
 
 ## 4. Appropriately labels the data set with descriptive variable names. 
-colnames(mDF) <- c("Subject", "ActivityId", "Activity", measuredColNames)
+colnames(mDF) <- c("Subject", "Activity", measuredColNames)
 
 ## 5. From the data set in step 4, creates a second, independent tidy data set with the
 ##    average of each variable for each activity and each subject.
 ## 5.1. Melt the main data frame using appropriate identifiers and measured variables  
-mDFMelt <- melt(mDF, id = c("Subject", "ActivityId", "Activity"), 
+mDFMelt <- melt(mDF, id = c("Subject", "Activity"), 
                 mesaure.vars = measuredColNames)
 
 ## 5.2. Cast a molten data frame into a tidy data frame by calculate the average of each
 ##      measured varaible for each activiity and each subject
-tDF <- dcast(mDFMelt, Subject + ActivityId + Activity ~ variable , mean)
+tDF <- dcast(mDFMelt, Subject + Activity ~ variable , mean)
 
 ## 5.3. Sort the tidy data frame by Subject and ActivityId
-tDF <- arrange(tDF, Subject , ActivityId)
+tDF <- arrange(tDF, Subject , Activity)
 
 ## 5.4. Write tidy data frame into a tidy data set
 write.table(tDF, file = "./UCI HAR Dataset/tidy.txt", row.names = FALSE)
